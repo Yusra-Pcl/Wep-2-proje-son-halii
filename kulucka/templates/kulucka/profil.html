@@ -1,0 +1,171 @@
+{% extends 'kulucka/base.html' %}
+
+{% block title %}Profilim | Zanaat-AI Satıcı Yönetimi{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Üst Karşılama ve Mağaza Bilgileri Alanı -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-8">
+            <div class="bg-white p-4 rounded-4 shadow-sm border h-100 d-flex flex-column justify-content-between">
+                <div>
+                    <span class="badge bg-dark rounded-pill px-3 py-1 text-uppercase mb-2 small fw-bold">Aktif Dijital Mağaza</span>
+                    <h2 class="fw-bold text-dark mb-1 h3">Hoş geldin, @{{ user.username }}!</h2>
+                    <div class="d-flex flex-wrap gap-3 mt-3 text-secondary small">
+                        <span><i class="bi bi-geo-alt-fill text-danger me-1"></i> Konum: <strong>{{ profil.sehir|default:"Belirtilmedi" }}</strong></span>
+                        <span><i class="bi bi-telephone-fill text-success me-1"></i> İletişim: <strong>{{ profil.telefon|default:"Belirtilmedi" }}</strong></span>
+                        <span><i class="bi bi-tag-fill text-primary me-1"></i> Üyelik: <strong>{{ profil.get_kullanici_tipi_display }}</strong></span>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 mt-4">
+                    <button class="btn btn-dark rounded-pill px-4 btn-sm fw-semibold" data-bs-toggle="modal" data-bs-target="#urunEkleModal">
+                        <i class="bi bi-plus-circle me-1"></i> Yeni Ürün Ekle
+                    </button>
+                    <button class="btn btn-outline-secondary rounded-pill px-4 btn-sm fw-semibold" data-bs-toggle="modal" data-bs-target="#profilDuzenleModal">
+                        <i class="bi bi-gear-fill me-1"></i> Bilgilerimi Güncelle
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="bg-white p-4 rounded-4 shadow-sm border h-100 text-center d-flex flex-column justify-content-center">
+                <i class="bi bi-heart-pulse-fill text-danger display-4 mb-2"></i>
+                <h5 class="fw-bold text-dark mb-1">Müşteri İlgi Trafiği</h5>
+                <p class="text-muted small mb-3">Sitenizdeki ürünlerin aldığı toplam tüketici etkileşimi ve beğeni skoru.</p>
+                <div class="bg-light p-3 rounded-3">
+                    <span class="text-secondary d-block small mb-1">Toplam Beğeni İndeksi</span>
+                    <span class="display-6 fw-bold text-danger">{{ toplam_ilgi }} <span class="fs-6 text-muted">Etkileşim</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Satıcının Kendi Ürün Listesi Grid Alanı -->
+    <h4 class="fw-bold text-dark mb-3"><i class="bi bi-grid-3x3-gap text-secondary me-2"></i>Mağazamda Yayında Olan Ürünlerim</h4>
+    <div class="row">
+        {% if urunler %}
+            {% for urun in urunler %}
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white">
+                        <div style="height: 180px; background-color: #f1f2f6;" class="position-relative">
+                            {% if urun.gorsel %}
+                                <img src="{{ urun.gorsel.url }}" class="w-100 h-100 object-fit-cover">
+                            {% else %}
+                                <div class="w-100 h-100 d-flex align-items-center justify-content-center text-muted small">Görsel Yok</div>
+                            {% endif %}
+                            <span class="position-absolute top-0 start-0 text-white text-xs fw-bold px-3 py-1 m-3 rounded-pill shadow-sm small"
+                                  style="background-color: {% if urun.durum == 'sifir' %}#22c55e{% else %}#3b82f6{% endif %};">
+                                {{ urun.get_durum_display }}
+                            </span>
+                            <span class="position-absolute bottom-0 end-0 bg-white text-dark text-xs fw-bold px-3 py-1 m-2 rounded-pill shadow-sm small border">
+                                <i class="bi bi-heart-fill text-danger me-1"></i>{{ urun.trend_skoru }} Beğeni
+                            </span>
+                        </div>
+                        <div class="card-body p-3 d-flex flex-column justify-content-between">
+                            <div>
+                                <h6 class="fw-bold text-dark mb-1">{{ urun.isim }}</h6>
+                                <p class="text-muted small text-truncate mb-2">{{ urun.aciklama }}</p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center bg-light p-2 rounded-3">
+                                <span class="small text-dark fw-bold">{{ urun.mevcut_fiyat }} TL</span>
+                                <div class="d-flex gap-1">
+                                    <a href="{% url 'kulucka:detail' urun.id %}" class="btn btn-xs btn-outline-dark rounded-pill px-2 py-0" style="font-size: 11px;">İncele</a>
+                                    <!-- ✏️ YENİ EKLENEN DÜZENLEME BUTONU -->
+                                    <a href="{% url 'kulucka:urun_duzenle' urun.id %}" class="btn btn-xs btn-warning rounded-pill px-2 py-0" style="font-size: 11px;">Düzenle</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center py-5 bg-white rounded-4 shadow-sm border">
+                <i class="bi bi-folder-x display-3 text-muted opacity-30"></i>
+                <p class="text-muted mt-2">Henüz mağazanıza yüklediğiniz bir ürün bulunmuyor.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- MODAL 1: ÜRÜN EKLEME AÇILIR PANELİ -->
+<div class="modal fade" id="urunEkleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow">
+            <div class="modal-header border-0">
+                <h5 class="fw-bold text-dark mb-0">📦 Yeni Pazaryeri Ürünü Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body pt-0">
+                    <div class="mb-2">
+                        <label class="small fw-bold text-secondary mb-1">Ürün Adı</label>
+                        {{ urun_form.isim }}
+                    </div>
+                    <div class="row g-2 mb-2">
+                        <div class="col-6">
+                            <label class="small fw-bold text-secondary mb-1">Kategori</label>
+                            {{ urun_form.kategori }}
+                        </div>
+                        <div class="col-6">
+                            <label class="small fw-bold text-secondary mb-1">Durum</label>
+                            {{ urun_form.durum }}
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label class="small fw-bold text-secondary mb-1">Fiyat (TL)</label>
+                        {{ urun_form.mevcut_fiyat }}
+                    </div>
+                    <div class="mb-2">
+                        <label class="small fw-bold text-secondary mb-1">Ürün Detaylı Açıklaması</label>
+                        {{ urun_form.aciklama }}
+                    </div>
+                    <div class="mb-0">
+                        <label class="small fw-bold text-secondary mb-1">Ürün Görseli</label>
+                        {{ urun_form.gorsel }}
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-sm btn-light rounded-pill px-3" data-bs-dismiss="modal">Kapat</button>
+                    <button type="submit" name="urun_ekle" class="btn btn-sm btn-success rounded-pill px-4">Sisteme Yükle & Yayınla</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL 2: PROFİL BİLGİLERİNİ DÜZENLEME AÇILIR PANELİ -->
+<div class="modal fade" id="profilDuzenleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow">
+            <div class="modal-header border-0">
+                <h5 class="fw-bold text-dark mb-0">👤 Profil Bilgilerimi Güncelle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="modal-body pt-0">
+                    <div class="mb-2">
+                        <label class="small fw-bold text-secondary mb-1">Üyelik Tipi</label>
+                        {{ profil_form.kullanici_tipi }}
+                    </div>
+                    <div class="mb-2">
+                        <label class="small fw-bold text-secondary mb-1">Bulunduğunuz Şehir</label>
+                        {{ profil_form.sehir }}
+                    </div>
+                    <div class="mb-0">
+                        <label class="small fw-bold text-secondary mb-1">Telefon Numaranız</label>
+                        {{ profil_form.telefon }}
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-sm btn-light rounded-pill px-3" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" name="profil_guncelle" class="btn btn-sm btn-dark rounded-pill px-4">Değişiklikleri Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

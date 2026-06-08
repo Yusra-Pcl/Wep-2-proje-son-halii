@@ -1,0 +1,141 @@
+{% extends 'kulucka/base.html' %}
+
+{% block title %}Hakkımızda | Zanaat-AI İnovasyon Ekosistemi{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row align-items-center g-5 mb-5">
+        <div class="col-lg-7">
+            <span class="badge text-uppercase tracking-wider px-3 py-2 mb-3 rounded-pill" style="background-color: #ff6000; color: #fff; font-size: 0.75rem; font-weight: 700;">Girişim Ekosistemi</span>
+            <h1 class="display-4 fw-extrabold text-dark mb-4" style="letter-spacing: -1.5px; font-weight: 800;">Nedir bu Zanaat-AI?</h1>
+            <p class="lead text-secondary mb-4" style="font-size: 1.2rem; line-height: 1.7; font-weight: 400;">
+                Zanaat-AI; geleneksel el emeği üretimini koruma misyonunu, modern döngüsel ekonomi vizyonu ve yapay zeka teknolojileriyle harmanlayan yenilikçi bir akıllı pazaryeri girişimidir.
+            </p>
+            <p class="text-muted" style="line-height: 1.8;">
+                Girişimimiz iki temel dünyayı bir araya getirir: Evinde mikro-üretim yapan zanaatkarlarımızın el emeklerini hak ettiği değerde satabilmesi ve bireysel kullanıcıların evlerindeki atıl eşyaları (çanta, kitap, kıyafet) döngüsel ekonomiye kazandırarak sürdürülebilirliğe katkı sağlaması. Dijital veri akışını ve hızlı doğrulamayı önceliklendirerek pürüzsüz bir alışveriş deneyimi sunuyoruz.
+            </p>
+            <div class="d-flex gap-3 mt-4">
+                <a href="{% url 'kulucka:index' %}" class="btn btn-dark rounded-pill px-4 py-2 fw-semibold">Pazaryerini Keşfet →</a>
+                <a href="#detaylar" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold">Girişim Detaylarını Oku</a>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="p-5 bg-white rounded-4 shadow-sm border text-center position-relative overflow-hidden">
+                <div class="position-absolute top-0 start-0 w-100 h-1" style="background-color: #ff6000;"></div>
+                <i class="bi bi-cpu text-success display-2 mb-3 d-block"></i>
+                <h3 class="fw-bold text-dark h4 mb-2">Yapay Zeka Destekli Döngüsel Ekonomi</h3>
+                <p class="text-muted small px-3">Platformumuz, geleneksel pazar yeri kalıplarını yıkarak yerel üreticiyi ve çevre dostu tüketimi akıllı algoritmalarla destekler.</p>
+                <div class="border-top pt-3 mt-3">
+                    <span class="badge bg-success-subtle text-success rounded-pill px-3 py-1 small">%100 Sürdürülebilir</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="detaylar" class="pt-5 border-top">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-dark" style="letter-spacing: -1px;">Ekosistem Mimarisi ve Stratejik Çözüm Modeli</h2>
+            <p class="text-muted" style="font-size: 1.05rem;">Üreticiyi destekleyen, tüketiciyi koruyan ve sürdürülebilirliği hedefleyen yeni nesil altyapı analizi</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm p-4 rounded-4 bg-white">
+                    <div class="bg-danger-subtle text-danger rounded-3 d-inline-flex align-items-center justify-content-center mb-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark mb-2">Mevcut Problemler</h5>
+                    <p class="text-muted small" style="line-height: 1.6;">
+                        Geleneksel e-ticaret devleri yüksek komisyon oranlarıyla küçük üreticileri zorluyor. Ayrıca ev hanımları ve mikro-girişimciler, dinamik piyasa koşullarında el emeklerinin gerçek değerini ve optimum fiyatlandırmasını hesaplamakta zorlanıyor, bu da emek israfına yol açıyor.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm p-4 rounded-4 bg-white">
+                    <div class="bg-success-subtle text-success rounded-3 d-inline-flex align-items-center justify-content-center mb-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-lightning-charge-fill fs-5"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark mb-2">Zanaat-AI Karar Desteği</h5>
+                    <p class="text-muted small" style="line-height: 1.6;">
+                        Geliştirdiğimiz esnek talep algoritması, tüketicilerin ürünlere olan ilgisini (Trend Skoru) anlık olarak analiz eder. Sistem, yerel üreticiye karar destek mekanizması sunarak, emeğin değerini koruyacak dinamik bir <strong>AI Optimum Fiyat Önerisi</strong> hesaplar.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm p-4 rounded-4 bg-white">
+                    <div class="bg-primary-subtle text-primary rounded-3 d-inline-flex align-items-center justify-content-center mb-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-recycle fs-5"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark mb-2">Sürdürülebilir Garage Alanı</h5>
+                    <p class="text-muted small" style="line-height: 1.6;">
+                        İkinci el kitap, çanta ve kıyafetlerin listelendiği bağımsız "Garage" alanımız sayesinde, tüketiciler evlerindeki atıl eşyaları komisyonsuz ve doğrudan satabilir. Bu döngüsel pazar yapısı, karbon ayak izini azaltmayı ve israfı önlemeyi hedefler.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5 pt-4 align-items-center bg-light rounded-4 p-4 g-4 mx-1 border-0 shadow-sm">
+            <div class="col-lg-5">
+                <h4 class="fw-bold text-dark mb-3" style="letter-spacing: -0.5px;"><i class="bi bi-credit-card-2-front text-primary me-2"></i>Esnek ve Güvenli Ödeme Çözümleri</h4>
+                <p class="text-muted small" style="line-height: 1.6;">
+                    Zanaat-AI, kullanıcıların alışveriş alışkanlıklarına tam uyum sağlamak ve güven inşa etmek için geleneksel ve dijital ödeme modellerini tek bir çatıda birleştirir. Alıcılar kendilerine en uygun akışı seçerek siparişlerini saniyeler içinde tamamlayabilirler.
+                </p>
+            </div>
+            <div class="col-lg-7">
+                <div class="row g-3">
+                    <div class="col-sm-4">
+                        <div class="p-3 bg-white rounded-3 shadow-sm h-100">
+                            <i class="bi bi-shield-check text-success fs-3 mb-2 d-block"></i>
+                            <h6 class="fw-bold text-dark mb-1">Kredi / Banka Kartı</h6>
+                            <p class="text-muted text-xs mb-0" style="font-size: 0.75rem;">Kart bilgileriyle anında, 3D Secure güvencesiyle online ödeme altyapısı.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="p-3 bg-white rounded-3 shadow-sm h-100">
+                            <i class="bi bi-truck text-primary fs-3 mb-2 d-block"></i>
+                            <h6 class="fw-bold text-dark mb-1">Kapıda Ödeme</h6>
+                            <p class="text-muted text-xs mb-0" style="font-size: 0.75rem;">Güven odaklı alışveriş için kapıda nakit veya kartla ödeme seçeneği.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="p-3 bg-white rounded-3 shadow-sm h-100">
+                            <i class="bi bi-whatsapp text-success fs-3 mb-2 d-block"></i>
+                            <h6 class="fw-bold text-dark mb-1">Doğrudan İletişim</h6>
+                            <p class="text-muted text-xs mb-0" style="font-size: 0.75rem;">Satıcıyla doğrudan WhatsApp üzerinden görüşerek detaylandırma seçeneği.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-4 text-center">
+            <div class="col-md-3">
+                <div class="bg-white p-4 rounded-4 shadow-sm border-0">
+                    <h3 class="fw-bold text-dark mb-1">0%</h3>
+                    <small class="text-muted text-uppercase fw-semibold" style="font-size: 0.75rem;">Komisyon Oranı</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-white p-4 rounded-4 shadow-sm border-0">
+                    <h3 class="fw-bold text-success mb-1">Dinamik</h3>
+                    <small class="text-muted text-uppercase fw-semibold" style="font-size: 0.75rem;">AI Fiyat Optimizasyonu</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-white p-4 rounded-4 shadow-sm border-0">
+                    <h3 class="fw-bold text-primary mb-1">Çok Kanallı</h3>
+                    <small class="text-muted text-uppercase fw-semibold" style="font-size: 0.75rem;">Esnek Ödeme Entegrasyonu</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-white p-4 rounded-4 shadow-sm border-0">
+                    <h3 class="fw-bold text-warning mb-1">♻️ Döngüsel</h3>
+                    <small class="text-muted text-uppercase fw-semibold" style="font-size: 0.75rem;">Sürdürülebilir Ekonomi</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
